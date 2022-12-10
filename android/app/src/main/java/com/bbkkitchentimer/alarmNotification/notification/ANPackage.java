@@ -1,4 +1,4 @@
-package com.emekalites.react.alarm.notification;
+package com.bbkkitchentimer.alarmNotification.notification;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

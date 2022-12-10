@@ -1,4 +1,4 @@
-package com.emekalites.react.alarm.notification;
+package com.bbkkitchentimer.alarmNotification.notification;
 
 class Constants {
     static final String ADD_INTENT = "com.emekalites.react.alarm.notification.Constants.ADD_INTENT";

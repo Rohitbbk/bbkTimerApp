@@ -18,7 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.emekalites.react.alarm.notification;
+package com.bbkkitchentimer.alarmNotification.notification;
 
 import android.os.Bundle;
 import org.json.JSONArray;

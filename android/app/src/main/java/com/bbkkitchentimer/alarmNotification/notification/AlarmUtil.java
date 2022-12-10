@@ -1,4 +1,4 @@
-package com.emekalites.react.alarm.notification;
+package com.bbkkitchentimer.alarmNotification.notification;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
+import com.bbkkitchentimer.R;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 
@@ -37,9 +38,9 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.time.LocalDateTime;
 
-import static com.emekalites.react.alarm.notification.Constants.ADD_INTENT;
-import static com.emekalites.react.alarm.notification.Constants.NOTIFICATION_ACTION_DISMISS;
-import static com.emekalites.react.alarm.notification.Constants.NOTIFICATION_ACTION_SNOOZE;
+import static com.bbkkitchentimer.alarmNotification.notification.Constants.ADD_INTENT;
+import static com.bbkkitchentimer.alarmNotification.notification.Constants.NOTIFICATION_ACTION_SNOOZE;
+import static com.bbkkitchentimer.alarmNotification.notification.Constants.NOTIFICATION_ACTION_DISMISS;
 
 class AlarmUtil {
     private static final String TAG = AlarmUtil.class.getSimpleName();
@@ -221,12 +222,24 @@ class AlarmUtil {
         if(scheduleType.equals("repeat")){
             getAlarmDB().delete(alarm.getId());
 
-            LocalDateTime oldDate = LocalDateTime.of(alarm.getYear(), alarm.getMonth(), alarm.getDay(),alarm.getHour(), alarm.getMinute());
-            LocalDateTime nextDate = oldDate.plusDays(1);
+            LocalDateTime oldDate = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                oldDate = LocalDateTime.of(alarm.getYear(), alarm.getMonth(), alarm.getDay(),alarm.getHour(), alarm.getMinute());
+            }
+            LocalDateTime nextDate = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                nextDate = oldDate.plusDays(1);
+            }
 
-            alarm.setYear(nextDate.getYear());
-            alarm.setDay(nextDate.getDayOfMonth());
-            alarm.setMonth(nextDate.getMonthValue());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                alarm.setYear(nextDate.getYear());
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                alarm.setDay(nextDate.getDayOfMonth());
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                alarm.setMonth(nextDate.getMonthValue());
+            }
 
             boolean containAlarm = this.checkAlarm(getAlarmDB().getAlarmList(1), alarm);
 

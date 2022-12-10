@@ -4,16 +4,13 @@ import {
   NativeEventEmitter,
   NativeModules,
   Alert,
-  LogBox,
 } from 'react-native';
 import Header from '../components/Header';
 import CustomStatusBar from '../../CustomStatusBar';
-import OvenSection from '../molecules/oven/container/OvenSection';
 import ReactNativeAN from '../../../Utility/components/ReactNativeAN';
 
 import {storeData, decksBoxes, dashboardData} from './RawData';
-import GasSection from '../molecules/gas/container/GasSection';
-import TabSection from '../molecules/Section';
+import TabSection from '../molecules/TabSection';
 
 const {RNAlarmNotification} = NativeModules;
 const RNAlarmEmitter = new NativeEventEmitter(RNAlarmNotification);
@@ -37,8 +34,6 @@ const DashboardScreen = () => {
   const [oven, setOven] = useState(true);
   const [gas, setGas] = useState(false);
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
-  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-  LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   useEffect(() => {
     return () => {
@@ -50,7 +45,7 @@ const DashboardScreen = () => {
   const addNewOvenDeckData = tabType => {
     setMainData(prevState => {
       let newState = prevState;
-      const tab = tabType === 'oven' ? newState.oven : newState.gas;
+      const tab = oven ? newState.oven : newState.gas;
       const dataLength = tab.decks.length + 1;
       const newOvenDeck = {
         name: 'Oven' + dataLength,
@@ -69,11 +64,12 @@ const DashboardScreen = () => {
   const removeOvenDeck = () => {
     setMainData(prevState => {
       let newState = prevState;
-      const dataLength = newState.oven.decks.length;
-      const selectedDeck = newState.oven.selectedDeck;
+      const tabs = oven ? newState.oven : newState.gas;
+      const dataLength = tabs.decks.length;
+      const selectedDeck = tabs.selectedDeck;
       if (dataLength > 1) {
-        newState.oven.decks.splice(selectedDeck, 1);
-        newState.oven.selectedDeck = 0;
+        tabs.decks.splice(selectedDeck, 1);
+        tabs.selectedDeck = 0;
       } else {
         Alert.alert('BBKTimer', 'Atleast one deck should be present');
       }
@@ -160,7 +156,7 @@ const DashboardScreen = () => {
   ) => {
     setMainData(prevState => {
       let newState = prevState;
-      const tab = tabType === 'oven' ? newState.oven : newState.gas;
+      const tab = oven ? newState.oven : newState.gas;
       const selectedDeck = tab.selectedDeck;
       if (start) {
         startTimer(tab, index, number, deckIndex);
@@ -181,7 +177,7 @@ const DashboardScreen = () => {
   const ovenTabChange = (index, tabType) => {
     setMainData(prevState => {
       let newState = prevState;
-      const tab = tabType === 'oven' ? newState.oven : newState.gas;
+      const tab = oven ? newState.oven : newState.gas;
       tab.selectedDeck = index;
       return newState;
     });
@@ -195,6 +191,7 @@ const DashboardScreen = () => {
       setOven(false);
       setGas(true);
     }
+    forceUpdate();
   };
   return (
     <SafeAreaView
@@ -205,32 +202,8 @@ const DashboardScreen = () => {
       }}>
       <CustomStatusBar />
       <Header tabChange={headerTabPress} oven={oven} gas={gas} />
-      {/* {oven ? (
-        <OvenSection
-          ovenData={mainData.oven}
-          addNewOvenDeckData={addNewOvenDeckData}
-          ovenTabChange={ovenTabChange}
-          updateOvenBoxTimerValue={updateOvenBoxTimerValue}
-          removeOvenDeck={removeOvenDeck}
-          startAllTimer={startAllTimer}
-          stopAllOvenTimer={stopAllOvenTimer}
-          editOvenBoxTimeValue={editOvenBoxTimeValue}
-          updateOvenDeckBoxTimeValue={updateOvenDeckBoxTimeValue}
-        />
-      ) : (
-        <GasSection
-          gasData={mainData.gas}
-          addNewOvenDeckData={addNewOvenDeckData}
-          ovenTabChange={ovenTabChange}
-          updateOvenBoxTimerValue={updateOvenBoxTimerValue}
-          removeOvenDeck={removeOvenDeck}
-          startAllTimer={startAllTimer}
-          stopAllOvenTimer={stopAllOvenTimer}
-          editOvenBoxTimeValue={editOvenBoxTimeValue}
-          updateOvenDeckBoxTimeValue={updateOvenDeckBoxTimeValue}
-        />
-      )} */}
       <TabSection
+        isOven={oven}
         data={oven ? mainData.oven : mainData.gas}
         addNewOvenDeckData={addNewOvenDeckData}
         ovenTabChange={ovenTabChange}
