@@ -14,11 +14,12 @@ import editTimerIcon from '../../../assets/timer.png';
 const textStyleForAction = {
   fontSize: moderateScale(10),
   textAlign: 'center',
-  padding: 10,
 };
 const textContainerStyle = {
-  width: horizontalScale(50),
-  height: verticalScale(35),
+  alignItems: 'center',
+  justifyContent: 'center',
+  minWidth: horizontalScale(80),
+  height: verticalScale(25),
 };
 
 const buttonColor = '#930433';
@@ -57,7 +58,7 @@ export const FloatingActionData = [
     position: 1,
     textStyle: textStyleForAction,
     textContainerStyle: textContainerStyle,
-    buttonSize: verticalScale(60),
+    buttonSize: verticalScale(40),
     color: buttonColor,
   },
   {
@@ -67,7 +68,7 @@ export const FloatingActionData = [
     position: 2,
     textStyle: textStyleForAction,
     textContainerStyle: textContainerStyle,
-    buttonSize: verticalScale(60),
+    buttonSize: verticalScale(40),
     color: buttonColor,
   },
   {
@@ -77,7 +78,7 @@ export const FloatingActionData = [
     position: 3,
     textStyle: textStyleForAction,
     textContainerStyle: textContainerStyle,
-    buttonSize: verticalScale(60),
+    buttonSize: verticalScale(40),
     color: buttonColor,
   },
 ];

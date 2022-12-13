@@ -31,10 +31,26 @@ export const EditModal = ({
         visible={modalVisible}
         transparent={true}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
         }}>
         <SafeAreaView style={styles.centeredView}>
           <View style={styles.modalView}>
+            <View style={{position: 'absolute', top: -25, right: -15}}>
+              <Pressable
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 25,
+                  backgroundColor: 'black',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onPress={() => {
+                  setModalVisible(false);
+                }}>
+                <Text style={{fontSize: 20, color: 'white'}}>X</Text>
+              </Pressable>
+            </View>
             <Text
               style={{
                 color: 'black',

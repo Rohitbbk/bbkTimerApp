@@ -1,6 +1,7 @@
 package com.bbkkitchentimer;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.bbkkitchentimer.alarmNotification.notification.BundleJSONConverter;
@@ -12,6 +13,12 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import org.json.JSONObject;
 
 public class MainActivity extends ReactActivity {
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+  }
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule

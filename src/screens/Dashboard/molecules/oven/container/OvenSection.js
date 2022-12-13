@@ -22,7 +22,7 @@ const OvenSection = ({
     ovenTabChange(event.nativeEvent.position, 'oven');
   };
   const onTabChangePager = index => {
-    ref.current.setPage(index);
+    ref.current.setPageWithoutAnimation(index);
   };
   return (
     <>

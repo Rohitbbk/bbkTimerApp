@@ -17,7 +17,7 @@ const TabSection = ({
 }) => {
   const ref = React.useRef(PagerView);
   React.useEffect(() => {
-    ref.current.setPage(data?.selectedDeck);
+    ref.current.setPageWithoutAnimation(data?.selectedDeck);
   }, [isOven]);
   const onViewPager = event => {
     ovenTabChange(event.nativeEvent.position);

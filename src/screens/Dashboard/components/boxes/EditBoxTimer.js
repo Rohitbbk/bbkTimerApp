@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 import {ModalSafeAreaView} from './styles';
+import {Picker} from '@react-native-picker/picker';
 import {
   horizontalScale,
   moderateScale,
@@ -24,6 +25,7 @@ const EditBoxTimer = ({
   onChangeNumber,
   startTimer,
 }) => {
+  const [selectedValue, setSelectedValue] = useState('5');
   return (
     <Modal
       animationType="slide"
@@ -34,33 +36,43 @@ const EditBoxTimer = ({
       }}>
       <ModalSafeAreaView>
         <View style={styles.modalView}>
+          <View style={{position: 'absolute', top: -25, right: -15}}>
+            <Pressable
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 25,
+                backgroundColor: 'black',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => {
+                setModalVisible(false);
+              }}>
+              <Text style={{fontSize: 20, color: 'white'}}>X</Text>
+            </Pressable>
+          </View>
           <Text style={{fontSize: moderateScale(20), color: 'black'}}>
             BBK Timer
           </Text>
           <Text style={{fontSize: moderateScale(14), color: 'black'}}>
             Update the time in minutes
           </Text>
-          <TextInput
+          <Picker
+            selectedValue={selectedValue}
             style={{
-              height: verticalScale(50),
-              width: horizontalScale(150),
-              margin: horizontalScale(10),
               borderWidth: 1,
-              padding: 10,
+              borderColor: 'black',
+              height: 50,
+              width: 200,
             }}
-            maxLength={2}
-            onChangeText={text => {
-              onChangeNumber(text.replace(/[^0-9]/g, ''));
-            }}
-            value={number}
-            placeholder="Enter time in minutes"
-            keyboardType="numeric"
-          />
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={startTimer}>
-            <Text style={styles.textStyle}>Update Box Time</Text>
-          </Pressable>
+            onValueChange={(itemValue, itemIndex) => startTimer(itemValue)}>
+            <Picker.Item label="15 min" value="15" />
+            <Picker.Item label="20 min" value="20" />
+            <Picker.Item label="25 min" value="25" />
+            <Picker.Item label="30 min" value="30" />
+            <Picker.Item label="35 min" value="35" />
+          </Picker>
         </View>
       </ModalSafeAreaView>
     </Modal>
@@ -103,7 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     width: horizontalScale(200),
-    minHeight: verticalScale(300),
+    minHeight: verticalScale(200),
     padding: 16,
     paddingLeft: 20,
     paddingRight: 20,
@@ -118,6 +130,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
+    position: 'absolute',
+    bottom: 10,
     borderRadius: 10,
     padding: 10,
     marginTop: 10,

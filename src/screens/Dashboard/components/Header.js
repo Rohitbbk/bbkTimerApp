@@ -9,39 +9,6 @@ import {
 const Header = ({tabChange, oven, gas}) => {
   return (
     <View style={{flexDirection: 'row', backgroundColor: '#930433'}}>
-      <TouchableOpacity
-        onPress={() => Alert.alert('', 'info')}
-        style={{
-          position: 'absolute',
-          right: 20,
-          bottom: 20,
-        }}>
-        <Image
-          style={{
-            width: horizontalScale(12),
-            height: horizontalScale(12),
-            tintColor: 'white',
-          }}
-          source={require('../../../assets/infoo.png')}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => Alert.alert('', 'Logout')}
-        style={{
-          position: 'absolute',
-          left: 20,
-          bottom: 20,
-        }}>
-        <Image
-          style={{
-            width: horizontalScale(12),
-            height: horizontalScale(12),
-            tintColor: 'white',
-          }}
-          source={require('../../../assets/logoutt.png')}
-        />
-      </TouchableOpacity>
-
       <View
         style={{
           height: verticalScale(70),

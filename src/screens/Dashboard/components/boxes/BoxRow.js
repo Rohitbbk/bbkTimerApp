@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import {Container, ModalSafeAreaView, ModalView} from './styles';
+import {Picker} from '@react-native-picker/picker';
 import BackgroundTimer from 'react-native-background-timer';
 import {
   horizontalScale,
@@ -16,6 +17,9 @@ import {
 } from '../../../../Utility/components/Metric';
 import EditBoxTimer from './EditBoxTimer';
 import {getRemaining, showNotificationOnTimerStop} from '../../utility/Utility';
+import OvenPickerItem from '../picker/OvenPickerItem';
+import GasPicker from '../picker/EditTimePicker';
+import TimeEditPicker from '../picker/EditTimePicker';
 
 const BoxRow = ({
   boxName,
@@ -29,17 +33,20 @@ const BoxRow = ({
   deckIndex,
   editOvenBoxTimeValue,
   tabType = 'gas',
+  isOven,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [number, onChangeNumber] = React.useState(null);
   const {mins, secs} = getRemaining(remainingSecs);
   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [selectedValue, setSelectedValue] = useState('5');
   const intervalId = React.useRef(null);
+  const pickerRef = useRef();
 
   let interval = null;
 
-  const editTimer = () => {
-    editOvenBoxTimeValue(index, number, tabType);
+  const editTimer = time => {
+    editOvenBoxTimeValue(index, time, tabType);
     setModalVisible(!modalVisible);
     onChangeNumber(null);
   };
@@ -58,7 +65,7 @@ const BoxRow = ({
       updateOvenBoxTimerValue(index, false, false, time, deckIndex, tabType);
       BackgroundTimer.clearInterval(interval);
     } else {
-      setModalVisible(!modalVisible);
+      pickerRef.current.focus();
     }
   };
 
@@ -79,13 +86,6 @@ const BoxRow = ({
 
   return (
     <Container>
-      <EditBoxTimer
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        number={number}
-        onChangeNumber={onChangeNumber}
-        startTimer={editTimer}
-      />
       <Pressable onPress={resetTimer} onLongPress={boxLongPress}>
         <View
           style={[styles.item, {backgroundColor: active ? 'red' : 'black'}]}>
@@ -94,6 +94,13 @@ const BoxRow = ({
           ) : (
             <Text style={styles.title}>{time + ':00'}</Text>
           )}
+
+          <TimeEditPicker
+            isOven={isOven}
+            pickerRef={pickerRef}
+            selectedValue={selectedValue}
+            updateTime={editTimer}
+          />
         </View>
       </Pressable>
     </Container>
@@ -108,17 +115,17 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: '#000',
     padding: 10,
-    width: horizontalScale(30),
-    height: horizontalScale(30),
+    width: horizontalScale(50),
+    height: horizontalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: horizontalScale(20),
+    borderRadius: horizontalScale(25),
     marginVertical: 18,
     marginHorizontal: 8,
   },
   title: {
     color: 'white',
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(12),
   },
   centeredView: {
     flex: 1,

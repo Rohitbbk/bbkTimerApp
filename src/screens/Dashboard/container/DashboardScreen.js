@@ -1,5 +1,6 @@
 import React, {useState, useReducer, useEffect} from 'react';
 import {
+  View,
   SafeAreaView,
   NativeEventEmitter,
   NativeModules,
@@ -83,8 +84,7 @@ const DashboardScreen = () => {
     const selectedDeck = tab.selectedDeck;
     const selectedDeckNumber = tab.decks[selectedDeck];
     selectedDeckNumber.deckBoxes[index].active = true;
-    selectedDeckNumber.deckBoxes[index].remainingSecs =
-      parseInt(number, 10) * 60;
+    selectedDeckNumber.deckBoxes[index].remainingSecs = parseInt(1, 10) * 10;
   };
 
   const deleteOvenTimer = (tab, index) => {
@@ -138,7 +138,8 @@ const DashboardScreen = () => {
   const editOvenBoxTimeValue = (index, time, tabType) => {
     setMainData(prevState => {
       let newState = prevState;
-      const tab = tabType === 'oven' ? newState.oven : newState.gas;
+      const tab = oven ? newState.oven : newState.gas;
+      console.log('tab Value is ', tabType);
       const selectedDeck = tab.selectedDeck;
       tab.decks[selectedDeck].deckBoxes[index].boxTime = time;
       return newState;
@@ -167,6 +168,7 @@ const DashboardScreen = () => {
           remainingSecsValue - 1;
       } else {
         deleteOvenTimer(tab, index);
+        ReactNativeAN.stopAlarmSound();
       }
 
       return newState;

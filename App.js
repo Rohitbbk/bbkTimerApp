@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginPage from './src/screens/Login/LoginPage';
 import DashboardScreen from './src/screens/Dashboard/container/DashboardScreen';
+import HomPage from './src/screens/HomePage/container/HomePage';
 
 function HomeScreen() {
   return (
@@ -38,7 +39,7 @@ function App() {
         />
         <Stack.Screen
           name="Home"
-          component={DashboardScreen}
+          component={HomPage}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

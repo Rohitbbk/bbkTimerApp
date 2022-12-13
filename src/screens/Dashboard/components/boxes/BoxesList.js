@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   SafeAreaView,
   FlatList,
@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import {FloatingAction} from 'react-native-floating-action';
 import {FloatingActionData} from '../../utility/Utility';
-import EditModal from '../modal/EditModal';
 import BoxRow from './BoxRow';
 import {SetText} from './styles';
+import EditTimePicker from '../picker/EditTimePicker';
 
 const BoxesList = ({
   deckData,
@@ -28,7 +28,9 @@ const BoxesList = ({
   tabType,
   isOven,
 }) => {
+  const pickerRef = useRef();
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('5');
   const renderItem = ({item, index}) => {
     const showSetText = isOven
       ? index === 0 || index === 1 || index === 2 || index === 3
@@ -61,6 +63,7 @@ const BoxesList = ({
             deckIndex={deckIndex}
             editOvenBoxTimeValue={editOvenBoxTimeValue}
             tabType={tabType}
+            isOven={isOven}
           />
         </View>
       </View>
@@ -96,7 +99,8 @@ const BoxesList = ({
         break;
 
       case 'editTimer':
-        setModalVisible(true);
+        pickerRef.current.focus();
+        // setModalVisible(true);
         break;
     }
   };
@@ -107,14 +111,6 @@ const BoxesList = ({
 
   return (
     <SafeAreaView style={containerStyle}>
-      {modalVisible ? (
-        <EditModal
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-          updateOvenDeckBoxTimeValue={updateOvenDeckBoxTimeValue}
-        />
-      ) : null}
-
       {isOven ? (
         <FlatList
           key={'_'}
@@ -134,12 +130,20 @@ const BoxesList = ({
       )}
 
       {hide ? null : (
-        <FloatingAction
-          actions={FloatingActionData}
-          color={'#930433'}
-          buttonSize={70}
-          onPressItem={floatingActionPress}
-        />
+        <View>
+          <FloatingAction
+            actions={FloatingActionData}
+            color={'#930433'}
+            buttonSize={70}
+            onPressItem={floatingActionPress}
+          />
+          <EditTimePicker
+            isOven={isOven}
+            pickerRef={pickerRef}
+            selectedValue={selectedValue}
+            updateTime={updateOvenDeckBoxTimeValue}
+          />
+        </View>
       )}
     </SafeAreaView>
   );
@@ -149,8 +153,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
   },
   hideContainer: {
     width: 0,
