@@ -6,15 +6,16 @@ import {
   updateBoxTimeValue,
   editAllBoxTime,
   floatingActionPress,
-  gas1DeckBoxes,
 } from '../../utility/Utility';
 import BoxRow from './BoxRow';
 import TimeEditPicker from '../../../Dashboard/components/picker/EditTimePicker';
 import {FloatingActionData} from '../../../Dashboard/utility/Utility';
-import {moderateScale} from '../../../../Utility/components/Metric';
 import SetText from '../../atoms/SetText';
 import {
   BoxRowContainer,
+  ImageBackgroundView,
+  imagePath,
+  imageStyle,
   RenderItemContainer,
   SafeAreaContainer,
 } from './GasStyles';
@@ -64,17 +65,14 @@ const GasBoxList = ({data}) => {
             deckIndex={0}
             editOvenBoxTimeValue={editOvenBoxTimeValue}
             tabType={''}
-            isOven={true}
+            isOven={false}
           />
         </BoxRowContainer>
       </RenderItemContainer>
     );
   };
   return (
-    <ImageBackground
-      source={require('../../../../assets/bbk-background.png')}
-      style={{width: '100%', height: '100%'}}
-      imageStyle={{opacity: 0.5}}>
+    <ImageBackgroundView source={imagePath} imageStyle={imageStyle}>
       <SafeAreaContainer>
         <FlatList
           key={'_'}
@@ -99,7 +97,7 @@ const GasBoxList = ({data}) => {
           updateTime={updateOvenDeckBoxTimeValue}
         />
       </SafeAreaContainer>
-    </ImageBackground>
+    </ImageBackgroundView>
   );
 };
 

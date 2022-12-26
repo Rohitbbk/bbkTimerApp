@@ -15,11 +15,15 @@ const TimeEditPicker = ({isOven, pickerRef, updateTime, selectedValue}) => {
             }
           }}>
           <Picker.Item label="Please select time" value="0" />
-          <Picker.Item label="2 min" value="2" />
-          <Picker.Item label="3 min" value="3" />
-          <Picker.Item label="4 min" value="4" />
-          <Picker.Item label="5 min" value="5" />
-          <Picker.Item label="6 min" value="6" />
+          <Picker.Item label="2 min" value={2} />
+          <Picker.Item label="3 min" value={3} />
+          <Picker.Item label="4 min" value={4} />
+          <Picker.Item label="5 min" value={5} />
+          <Picker.Item label="6 min" value={6} />
+          <Picker.Item label="7 min" value={7} />
+          <Picker.Item label="8 min" value={8} />
+          <Picker.Item label="9 min" value={9} />
+          <Picker.Item label="10 min" value={10} />
         </Picker>
       </>
     );
@@ -36,11 +40,11 @@ const TimeEditPicker = ({isOven, pickerRef, updateTime, selectedValue}) => {
           }
         }}>
         <Picker.Item label="Please select time" value="0" />
-        <Picker.Item label="15 min" value="15" />
-        <Picker.Item label="20 min" value="20" />
-        <Picker.Item label="25 min" value="25" />
-        <Picker.Item label="30 min" value="30" />
-        <Picker.Item label="35 min" value="35" />
+        <Picker.Item label="15 min" value={15} />
+        <Picker.Item label="20 min" value={20} />
+        <Picker.Item label="25 min" value={25} />
+        <Picker.Item label="30 min" value={30} />
+        <Picker.Item label="35 min" value={35} />
       </Picker>
     </>
   );

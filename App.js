@@ -2,11 +2,16 @@
 
 import * as React from 'react';
 import {View, Text, LogBox} from 'react-native';
+import * as Sentry from '@sentry/react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginPage from './src/screens/Login/LoginPage';
 import DashboardScreen from './src/screens/Dashboard/container/DashboardScreen';
 import HomPage from './src/screens/HomePage/container/HomePage';
+
+Sentry.init({
+  dsn: 'https://96110077a058464d9496d9c3207abe4a@o4504254374019072.ingest.sentry.io/4504254398201856',
+});
 
 function HomeScreen() {
   return (
@@ -31,7 +36,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="LoginPage">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="LoginPage"
           component={LoginPage}
@@ -47,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default Sentry.wrap(App);

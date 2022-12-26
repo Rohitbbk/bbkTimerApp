@@ -23,9 +23,9 @@ export default function TabViewExample() {
 
   React.useEffect(() => {
     const backAction = () => {
-      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+      Alert.alert('Hold on!', 'Do you want to exit from the app?', [
         {
-          text: 'Cancel',
+          text: 'No',
           onPress: () => null,
           style: 'cancel',
         },

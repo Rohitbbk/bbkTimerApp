@@ -57,7 +57,7 @@ export const editSingleBoxTime = (time, index, setOvenData, forceUpdate) => {
 
 const startTimer = (newState, index, time) => {
   newState[index].active = true;
-  newState[index].remainingSecs = parseInt(time, 10) * 10;
+  newState[index].remainingSecs = parseInt(time, 10) * 60;
 };
 
 const deleteBoxTime = (newState, index) => {

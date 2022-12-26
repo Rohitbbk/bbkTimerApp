@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-export const imageStyle = {opacity: 0.5};
+export const imageStyle = {opacity: 0.1};
 export const imagePath = require('../../../../assets/bbk-background.png');
 
 const borderTopWidth = props => {
