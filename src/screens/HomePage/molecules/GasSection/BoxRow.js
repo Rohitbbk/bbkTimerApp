@@ -94,15 +94,15 @@ const BoxRow = ({
     return 'black';
   };
 
+  const boxText = () => {
+    return active ? mins + ':' + secs : time + ':00';
+  };
+
   return (
     <View style={{flex: 1, marginTop: 20}}>
       <Pressable onPress={resetTimer} onLongPress={boxLongPress}>
         <View style={[styles.item, {backgroundColor: bgColor()}]}>
-          {active ? (
-            <Text style={styles.title}>{mins + ':' + secs}</Text>
-          ) : (
-            <Text style={styles.title}>{time + ':00'}</Text>
-          )}
+          <Text style={styles.title}>{boxText()}</Text>
 
           <TimeEditPicker
             isOven={isOven}
