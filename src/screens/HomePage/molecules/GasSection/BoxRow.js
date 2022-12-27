@@ -85,11 +85,19 @@ const BoxRow = ({
     return null;
   }
 
+  const bgColor = () => {
+    if (active && remainingSecs > 0) {
+      return 'green';
+    } else if (active && remainingSecs === 0) {
+      return 'red';
+    }
+    return 'black';
+  };
+
   return (
     <View style={{flex: 1, marginTop: 20}}>
       <Pressable onPress={resetTimer} onLongPress={boxLongPress}>
-        <View
-          style={[styles.item, {backgroundColor: active ? 'red' : 'black'}]}>
+        <View style={[styles.item, {backgroundColor: bgColor()}]}>
           {active ? (
             <Text style={styles.title}>{mins + ':' + secs}</Text>
           ) : (

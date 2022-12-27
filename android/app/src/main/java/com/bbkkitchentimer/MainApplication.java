@@ -12,6 +12,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.bbkkitchentimer.newarchitecture.MainApplicationReactNativeHost;
+import com.microsoft.codepush.react.CodePush;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -24,6 +26,11 @@ public class MainApplication extends Application implements ReactApplication {
           return BuildConfig.DEBUG;
         }
 
+          @Override
+          protected String getJSBundleFile() {
+              return CodePush.getJSBundleFile();
+          }
+
         @Override
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
@@ -34,10 +41,14 @@ public class MainApplication extends Application implements ReactApplication {
           return packages;
         }
 
-        @Override
-        protected String getJSMainModuleName() {
-          return "index";
-        }
+          @Override
+          protected String getJSMainModuleName() {
+              return "index";
+          }
+
+
+
+
       };
 
   private final ReactNativeHost mNewArchitectureNativeHost =

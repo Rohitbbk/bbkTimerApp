@@ -39,12 +39,12 @@ const TimeEditPicker = ({isOven, pickerRef, updateTime, selectedValue}) => {
             updateTime(itemValue);
           }
         }}>
-        <Picker.Item label="Please select time" value="0" />
-        <Picker.Item label="15 min" value={15} />
-        <Picker.Item label="20 min" value={20} />
-        <Picker.Item label="25 min" value={25} />
-        <Picker.Item label="30 min" value={30} />
-        <Picker.Item label="35 min" value={35} />
+        {[...Array(61)].map((_, i) => {
+          if (i === 0) {
+            return <Picker.Item label="Please select time" value={''} />;
+          }
+          return <Picker.Item label={i + ' min'} value={i} />;
+        })}
       </Picker>
     </>
   );
